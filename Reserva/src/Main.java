@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> eventos = new ArrayList<>();
+        List<Evento> eventos = new ArrayList<>();
 
         while (true) {
             System.out.println("\n=== Menu de Eventos ===");
@@ -14,12 +14,12 @@ public class Main {
             System.out.println("3. Mostrar Eventos");
             System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
-
             int opcao = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine(); // Consumir a quebra de linha
 
             switch (opcao) {
-                case 1: 
+                case 1:
+                    // Cadastrar Palestra
                     System.out.print("Nome da Palestra: ");
                     String nomePalestra = scanner.nextLine();
                     System.out.print("Data (YYYY-MM-DD): ");
@@ -28,34 +28,39 @@ public class Main {
                     String localPalestra = scanner.nextLine();
                     System.out.print("Capacidade Máxima: ");
                     int capacidadePalestra = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     System.out.print("Palestrante: ");
                     String palestrante = scanner.nextLine();
                     System.out.print("Duração: ");
-                    String duracaoPalestra = scanner.nextLine();
+                    String duracao = scanner.nextLine();
                     System.out.print("Tema: ");
-                    String temaPalestra = scanner.nextLine();
+                    String tema = scanner.nextLine();
 
-                    
-                    System.out.print("Número de participantes da Palestra: ");
-                    int numeroParticipantesPalestra = scanner.nextInt();
-                    scanner.nextLine(); 
-                    List<String> participantesPalestra = new ArrayList<>();
-                    for (int i = 0; i < numeroParticipantesPalestra; i++) {
-                        System.out.print("Nome do participante " + (i + 1) + ": ");
-                        String participante = scanner.nextLine();
-                        participantesPalestra.add(participante);
+                    Palestra palestra = new Palestra(nomePalestra, dataPalestra, localPalestra, capacidadePalestra, palestrante, duracao, tema);
+
+                    // Adicionar Participantes
+                    System.out.print("Número de participantes: ");
+                    int numParticipantes = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int i = 0; i < numParticipantes; i++) {
+                        System.out.print("Nome do Participante " + (i + 1) + ": ");
+                        String nomeParticipante = scanner.nextLine();
+                        System.out.print("E-mail do Participante " + (i + 1) + ": ");
+                        String emailParticipante = scanner.nextLine();
+                        System.out.print("Tipo (normal ou VIP): ");
+                        String tipoParticipante = scanner.nextLine();
+
+                        Participante participante = new Participante(nomeParticipante, emailParticipante, tipoParticipante);
+                        palestra.adicionarParticipante(participante);
                     }
 
-                    String eventoPalestra = "Palestra: " + nomePalestra + ", Data: " + dataPalestra + ", Local: " + localPalestra +
-                            ", Capacidade: " + capacidadePalestra + ", Palestrante: " + palestrante +
-                            ", Duração: " + duracaoPalestra + ", Tema: " + temaPalestra + 
-                            ", Participantes: " + String.join(", ", participantesPalestra);
-                    eventos.add(eventoPalestra);
+                    eventos.add(palestra);
                     System.out.println("Palestra cadastrada com sucesso!");
                     break;
 
                 case 2:
+                    // Cadastrar Workshop
                     System.out.print("Nome do Workshop: ");
                     String nomeWorkshop = scanner.nextLine();
                     System.out.print("Data (YYYY-MM-DD): ");
@@ -64,7 +69,7 @@ public class Main {
                     String localWorkshop = scanner.nextLine();
                     System.out.print("Capacidade Máxima: ");
                     int capacidadeWorkshop = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     System.out.print("Instrutor: ");
                     String instrutor = scanner.nextLine();
                     System.out.print("Carga Horária: ");
@@ -72,42 +77,48 @@ public class Main {
                     System.out.print("Materiais Necessários: ");
                     String materiais = scanner.nextLine();
 
-                    
-                    System.out.print("Número de participantes do Workshop: ");
-                    int numeroParticipantesWorkshop = scanner.nextInt();
-                    scanner.nextLine(); 
-                    List<String> participantesWorkshop = new ArrayList<>();
-                    for (int i = 0; i < numeroParticipantesWorkshop; i++) {
-                        System.out.print("Nome do participante " + (i + 1) + ": ");
-                        String participante = scanner.nextLine();
-                        participantesWorkshop.add(participante);
+                    Workshop workshop = new Workshop(nomeWorkshop, dataWorkshop, localWorkshop, capacidadeWorkshop, instrutor, cargaHoraria, materiais);
+
+                    // Adicionar Participantes
+                    System.out.print("Número de participantes: ");
+                    numParticipantes = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int i = 0; i < numParticipantes; i++) {
+                        System.out.print("Nome do Participante " + (i + 1) + ": ");
+                        String nomeParticipante = scanner.nextLine();
+                        System.out.print("E-mail do Participante " + (i + 1) + ": ");
+                        String emailParticipante = scanner.nextLine();
+                        System.out.print("Tipo (normal ou VIP): ");
+                        String tipoParticipante = scanner.nextLine();
+
+                        Participante participante = new Participante(nomeParticipante, emailParticipante, tipoParticipante);
+                        workshop.adicionarParticipante(participante);
                     }
 
-                    String eventoWorkshop = "Workshop: " + nomeWorkshop + ", Data: " + dataWorkshop + ", Local: " + localWorkshop +
-                            ", Capacidade: " + capacidadeWorkshop + ", Instrutor: " + instrutor +
-                            ", Carga Horária: " + cargaHoraria + ", Materiais: " + materiais +
-                            ", Participantes: " + String.join(", ", participantesWorkshop);
-                    eventos.add(eventoWorkshop);
+                    eventos.add(workshop);
                     System.out.println("Workshop cadastrado com sucesso!");
                     break;
 
-                case 3: 
+                case 3:
+                    // Mostrar Eventos
                     if (eventos.isEmpty()) {
                         System.out.println("Nenhum evento cadastrado.");
                     } else {
                         System.out.println("\n=== Lista de Eventos ===");
-                        for (String evento : eventos) {
-                            System.out.println(evento);
+                        for (Evento evento : eventos) {
+                            System.out.println(evento.exibirInfo());
                         }
                     }
                     break;
 
-                case 4: 
+                case 4:
+                    // Sair
                     System.out.println("Saindo!");
-                    scanner.close(); 
-                    return; 
+                    scanner.close();
+                    return;
 
-                default: 
+                default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
         }
