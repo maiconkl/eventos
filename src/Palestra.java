@@ -1,15 +1,25 @@
 public class Palestra extends Evento {
-    String palestrante;
-    String duracao;
+    private String palestrante;
+    private String duracao;
+    private String tema;
 
-    public Palestra(String nome, String data, String local, int capacidadeMaxima, String palestrante, String duracao) {
+    public Palestra(String nome, String data, String local, int capacidadeMaxima, 
+                    String palestrante, String duracao, String tema) {
         super(nome, data, local, capacidadeMaxima);
         this.palestrante = palestrante;
         this.duracao = duracao;
+        this.tema = tema;
     }
 
     @Override
     public String exibirInfo() {
-        return super.exibirInfo() + ", Palestrante: " + palestrante + ", Duracao: " + duracao;
+        String info = "Palestra: " + nome + ", Data: " + data + ", Local: " + local +
+               ", Capacidade: " + capacidadeMaxima + ", Palestrante: " + palestrante +
+               ", Duração: " + duracao + ", Tema: " + tema;
+        info += "\nParticipantes:";
+        for (Participante p : participantes) {
+            info += "\n" + p.toString();
+        }
+        return info;
     }
 }
