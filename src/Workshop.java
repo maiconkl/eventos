@@ -25,14 +25,31 @@ public class Workshop extends Evento {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public List<Participante> listarParticipantesVIP() {
+        List<Participante> vips = new ArrayList<>();
+        for (Participante p : participantes) {
+            if (p.getTipo().equalsIgnoreCase("VIP")) {
+                vips.add(p);
+            }
+        }
+        return vips;
+    }
+
+    @Override
+>>>>>>> ffd9c4cbb692574e0c9786fa2621016d98cee9ec
     public String exibirInfo() {
         String info = "Workshop: " + nome + ", Data: " + data + ", Local: " + local +
                ", Capacidade: " + capacidadeMaxima + ", Instrutor: " + instrutor +
                ", Carga Horária: " + cargaHoraria + ", Materiais: " + materiaisNecessarios;
+<<<<<<< HEAD
         info += "\nParticipantes:";
         for (Participante p : participantes) {
             info += "\n" + p.toString();
         }
+=======
+>>>>>>> ffd9c4cbb692574e0c9786fa2621016d98cee9ec
         return info;
     }
 }
