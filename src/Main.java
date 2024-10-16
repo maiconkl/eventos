@@ -5,13 +5,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Evento> eventos = new ArrayList<>();
+        List<Reserva> reservas = new ArrayList<>();
         while (true) {
             System.out.println("\n=== Menu de Eventos ===");
             System.out.println("1. Cadastrar Palestra");
             System.out.println("2. Cadastrar Workshop");
             System.out.println("3. Exibir relatório de eventos");
-            System.out.println("4. Listar participantes de um evento");
-            System.out.println("5. Sair");
+            System.out.println("4. Fazer reserva");
+            System.out.println("5. Mostrar reservar");
+            System.out.println("6. Listar participantes de um evento");
+            System.out.println("7. Sair");
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir a quebra de linha
@@ -86,6 +89,7 @@ public class Main {
                     eventos.add(workshop);
                     System.out.println("Workshop cadastrado com sucesso!");
                     break;
+
                 case 3:
                    if(eventos.isEmpty()){
                         System.out.println("Nenhum evento cadastrado!");
@@ -97,8 +101,53 @@ public class Main {
                         }
                    }
                    break;
+
+                   case 4:
+                   // Fazer Reserva
+                   if (eventos.isEmpty()) {
+                       System.out.println("Nenhum evento disponível para reserva.");
+                   } else {
+                       System.out.println("\n=== Fazer Reserva ===");
+                       System.out.println("Escolha um evento:");
+                       for (int i = 0; i < eventos.size(); i++) {
+                           System.out.println((i + 1) + ". " + eventos.get(i).getNome());
+                       }
+                       System.out.print("Selecione o evento: ");
+                       int indiceEvento = scanner.nextInt() - 1;
+
+                       if (indiceEvento >= 0 && indiceEvento < eventos.size()) {
+                           Evento eventoSelecionado = eventos.get(indiceEvento);
+                           System.out.print("Quantidade de reservas a adicionar: ");
+                           int quantidadeReservas = scanner.nextInt();
+
+                           Reserva reserva = new Reserva(eventoSelecionado);
+                           if (reserva.adicionarReservas(quantidadeReservas)) {
+                               reservas.add(reserva);
+                               System.out.println("Reserva feita com sucesso!");
+                           } else {
+                               System.out.println("Falha ao fazer a reserva.");
+                           }
+                       } else {
+                           System.out.println("Evento inválido.");
+                       }
+                   }
+                   break;
+
+                   case 5:
+                    // Mostrar Reservas
+                    if (reservas.isEmpty()) {
+                        System.out.println("Nenhuma reserva feita.");
+                    } else {
+                        System.out.println("\n=== Lista de Reservas ===");
+                        for (Reserva reserva : reservas) {
+                            reserva.listarReservas();
+                        }
+                    }
+                    break;
+
+
                 
-                case 4:
+                case 6:
                    // listar participantes VIPs de um evento
                     if(eventos.isEmpty()) {
                         System.out.println("Nenhum evento cadastrado!");
@@ -141,7 +190,7 @@ public class Main {
                         }
                     }
                     break;
-                case 5:
+                case 7:
                    scanner.close();
                    return;
                 default:
