@@ -39,4 +39,14 @@ public class Evento {
         return "Evento: " + nome + ", Data: " + data + ", Local: " + local + 
                ", Capacidade: " + capacidadeMaxima;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
+
 }
+
